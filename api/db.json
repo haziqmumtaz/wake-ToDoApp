@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "completed": false,
+      "deleted": false,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "text": "Complete the React project",
+      "completed": false,
+      "deleted": false,
+      "createdAt": "2025-02-03T13:00:00Z"
+    },
+    {
+      "id": 3,
+      "text": "Read a book",
+      "completed": true,
+      "deleted": false,
+      "createdAt": "2025-02-03T14:00:00Z"
+    }
+  ],
+  "counts": {
+    "uncompleted": 2,
+    "completed": 1,
+    "deleted": 0
+  }
+}
