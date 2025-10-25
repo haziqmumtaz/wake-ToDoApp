@@ -1,7 +1,7 @@
 import { httpClient } from '@/lib/http';
 import type { Task } from '@/types/tasks';
 
-export const taskApi = {
+export const tasksApi = {
   getPaginatedTasks: async () => {
     const response = await httpClient.get<Task[]>('/tasks');
     return response;

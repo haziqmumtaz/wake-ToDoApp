@@ -1,9 +1,11 @@
 {
   "tasks": [
     {
+      "id": 1,
+      "text": "Buy groceries",
       "completed": false,
-      "deleted": false,
-      "id": 1
+      "deleted": true,
+      "createdAt": "2025-02-03T12:00:00Z"
     },
     {
       "id": 2,
@@ -21,8 +23,8 @@
     }
   ],
   "counts": {
-    "uncompleted": 2,
+    "uncompleted": 1,
     "completed": 1,
-    "deleted": 0
+    "deleted": 1
   }
 }
