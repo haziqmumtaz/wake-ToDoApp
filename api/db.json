@@ -215,11 +215,18 @@
       "deleted": false,
       "createdAt": "2025-10-26T21:18:41.729Z",
       "id": 31
+    },
+    {
+      "text": "Testing 123445",
+      "completed": true,
+      "deleted": false,
+      "createdAt": "2025-10-26T22:29:33.574Z",
+      "id": 32
     }
   ],
   "counts": {
     "uncompleted": 6,
-    "completed": 4,
+    "completed": 5,
     "deleted": 21
   }
 }

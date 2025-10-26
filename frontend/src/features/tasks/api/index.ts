@@ -2,7 +2,7 @@ import { httpClient } from '@/lib/http';
 import type { PaginatedRequest, PaginatedResponse } from '@/types/core';
 import type { CreateTaskPayload, Task, TaskCounts, UpdateTaskPayload } from '@/types/tasks';
 
-export const tasksApi = {
+const tasksApi = {
   getPaginatedTasks: async (params: PaginatedRequest) => {
     const response = await httpClient.get<PaginatedResponse<Task>>(`/tasks`, { params });
     return response;
@@ -24,3 +24,5 @@ export const tasksApi = {
     return response;
   },
 };
+
+export default tasksApi;

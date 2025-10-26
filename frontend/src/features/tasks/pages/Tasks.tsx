@@ -18,7 +18,7 @@ const Tasks = () => {
 
   return (
     <div className="flex  lg:w-[35%] w-full flex-col gap-3">
-      <div className="flex flex-col border min-h-[64vh] shadow-md">
+      <div className="flex flex-col border min-h-[66vh] shadow-md">
         {isLoading && (
           <div className="flex flex-col gap-2 justify-center items-center h-full">
             <div className="w-4 h-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent" />
