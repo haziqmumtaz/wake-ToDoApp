@@ -190,14 +190,14 @@
     },
     {
       "text": "Task \n\n\n\n\n\n1wedas",
-      "completed": false,
+      "completed": true,
       "deleted": false,
       "createdAt": "2025-10-26T20:57:22.847Z",
       "id": 28
     },
     {
       "text": "Task 2341241\n",
-      "completed": false,
+      "completed": true,
       "deleted": false,
       "createdAt": "2025-10-26T20:59:03.266Z",
       "id": 29
@@ -211,7 +211,7 @@
     },
     {
       "text": "TestinG asfaiojhfcbjqnoqnvcjkeqjcponqwlcvmlqc qec",
-      "completed": true,
+      "completed": false,
       "deleted": false,
       "createdAt": "2025-10-26T21:18:41.729Z",
       "id": 31
@@ -225,8 +225,8 @@
     }
   ],
   "counts": {
-    "uncompleted": 6,
-    "completed": 5,
+    "uncompleted": 5,
+    "completed": 6,
     "deleted": 21
   }
 }

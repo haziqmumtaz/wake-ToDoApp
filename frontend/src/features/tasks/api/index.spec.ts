@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import tasksApi from './index';
+import { tasksApi } from './index';
 import { httpClient } from '@/lib/http';
 import type { Task, TaskCounts } from '@/types/tasks';
 import type { PaginatedResponse, PaginatedRequest } from '@/types/core';
