@@ -1,17 +1,19 @@
 import useTaskStore from '@/stores/useTaskStore';
 import type { CreateTaskPayload } from '@/types/tasks';
 import { tasksApi } from '../api';
+import useBaseApi from '@/lib/useBaseApi';
 
 const useCreateTask = () => {
+  const { isLoading, error, execute } = useBaseApi();
   const { setTasks, currentPage, tasks } = useTaskStore();
   const createTask = async (task: CreateTaskPayload) => {
-    const response = await tasksApi.createTask(task);
+    const response = await execute(async () => tasksApi.createTask(task));
     if (currentPage == 1 && tasks.length < 10) {
-      setTasks([...tasks, response]);
+      if (response) setTasks([...tasks, response]);
     }
   };
 
-  return { createTask };
+  return { createTask, isLoading, error };
 };
 
 export default useCreateTask;

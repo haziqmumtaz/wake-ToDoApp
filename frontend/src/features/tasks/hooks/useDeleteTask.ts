@@ -1,12 +1,14 @@
-import { useCallback } from 'react';
 import { tasksApi } from '../api';
+import useBaseApi from '@/lib/useBaseApi';
 
 const useDeleteTask = () => {
-  const deleteTask = useCallback(async (id: number) => {
-    await tasksApi.deleteTask(id);
-  }, []);
+  const { isLoading, error, execute } = useBaseApi();
+  const deleteTask = async (id: number) => {
+    const response = await execute(async () => tasksApi.deleteTask(id));
+    if (response) return response;
+  };
 
-  return { deleteTask };
+  return { deleteTask, isLoading, error };
 };
 
 export default useDeleteTask;
