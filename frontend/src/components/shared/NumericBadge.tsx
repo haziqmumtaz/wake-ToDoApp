@@ -1,7 +1,7 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface NumericBadgeProps {
-  value: number;
+  value: string;
   backgroundColor?: string;
   textColor?: string;
   className?: string;
@@ -12,14 +12,13 @@ const NumericBadge = ({
   value,
   backgroundColor = '#000000',
   textColor = '#FFFFFF',
-  className = '',
   tooltip = '',
 }: NumericBadgeProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <div
-          className={`numeric-badge rounded-full px-2 py-1 shadow-lg ${className} cursor-default`}
+          className={`rounded-full w-8 h-8 shadow-lg cursor-default flex items-center justify-center `}
           style={{ color: textColor, backgroundColor: backgroundColor }}
         >
           {value}

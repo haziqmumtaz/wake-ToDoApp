@@ -1,27 +1,31 @@
-import { useEffect, useState } from 'react';
-import TaskRow from '../components/TaskRow';
 import Pagination from '@/components/shared/Pagination';
-import { tasksApi } from '../api';
-import type { Task } from '@/types/tasks';
+import useTaskStore from '@/stores/useTaskStore';
+import { useEffect } from 'react';
+import TaskRow from '../components/TaskRow';
+import { useGetTaskCounts, useGetTasks } from '../hooks';
 
 const Tasks = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { fetchTasks } = useGetTasks();
+  const { fetchTaskCounts } = useGetTaskCounts();
+  const { tasks, totalPages, currentPage, setCurrentPage } = useTaskStore();
 
+  // Only fetch on mount and when currentPage changes
   useEffect(() => {
-    tasksApi.getPaginatedTasks().then(response => setTasks(response));
-  }, []);
+    fetchTasks({ _page: currentPage, _limit: 10 });
+    fetchTaskCounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
   return (
-    <div className="flex  lg:w-[35%] flex-col gap-3">
-      <div className="flex flex-col border min-h-[60vh] shadow-md ">
+    <div className="flex  lg:w-[35%] w-full flex-col gap-3">
+      <div className="flex flex-col border min-h-[64vh] shadow-md">
         {tasks.map(task => (
           <TaskRow key={task.id} task={task} />
         ))}
       </div>
       <div className="flex justify-center mt-4">
         <Pagination
-          totalPages={10}
+          totalPages={totalPages}
           currentPage={currentPage}
           onPageChange={page => {
             setCurrentPage(page);

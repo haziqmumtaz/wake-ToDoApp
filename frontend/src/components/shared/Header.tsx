@@ -1,18 +1,16 @@
+import TaskModal from '@/features/tasks/components/TaskModal';
+import useTaskStore from '@/stores/useTaskStore';
 import { FaCheckDouble, FaPlusCircle } from 'react-icons/fa';
 import { Button } from '../ui/button';
 import NumericBadge from './NumericBadge';
-import { useState } from 'react';
-import TaskModal from '@/features/tasks/components/TaskModal';
 
 interface HeaderProps {
   title: string;
-  uncompleted: number;
-  deleted: number;
-  completed: number;
 }
 
-export const Header = ({ title, uncompleted, deleted, completed }: HeaderProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export const Header = ({ title }: HeaderProps) => {
+  const { taskCounts, isModalOpen, setIsModalOpen } = useTaskStore();
+
   return (
     <>
       <header className="h-16 flex justify-between bg-white px-4 border-b">
@@ -22,13 +20,17 @@ export const Header = ({ title, uncompleted, deleted, completed }: HeaderProps) 
         </div>
         <div className="flex items-center gap-3">
           <NumericBadge
-            value={uncompleted}
+            value={taskCounts.uncompleted > 99 ? '99+' : taskCounts.uncompleted.toString()}
             backgroundColor="#6241E1"
             tooltip="No. of Tasks uncompleted"
           />
-          <NumericBadge value={deleted} backgroundColor="#E55251" tooltip="No. of Tasks deleted" />
           <NumericBadge
-            value={completed}
+            value={taskCounts.deleted > 99 ? '99+' : taskCounts.deleted.toString()}
+            backgroundColor="#E55251"
+            tooltip="No. of Tasks deleted"
+          />
+          <NumericBadge
+            value={taskCounts.completed > 99 ? '99+' : taskCounts.completed.toString()}
             backgroundColor="#40CA28"
             tooltip="No. of Tasks completed"
             className="text-[black]"
@@ -39,7 +41,7 @@ export const Header = ({ title, uncompleted, deleted, completed }: HeaderProps) 
             <p className="text-sm text-white">Add Todo</p>
           </Button>
         </div>
-        <TaskModal task={undefined} onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
+        <TaskModal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
       </header>
     </>
   );

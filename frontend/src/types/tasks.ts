@@ -6,9 +6,8 @@ export type Task = {
   createdAt: string;
 };
 
-export type CreateTaskPayload = Pick<Task, 'text'>;
-
-export type UpdateTaskPayload = Partial<Omit<Task, 'id' | 'createdAt'>>;
+export type CreateTaskPayload = Omit<Task, 'id'>;
+export type UpdateTaskPayload = Partial<Omit<Task, 'createdAt'>>;
 
 export type TaskStatus = 'completed' | 'uncompleted' | 'deleted';
 

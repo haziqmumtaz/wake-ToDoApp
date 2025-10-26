@@ -1,40 +1,81 @@
 import type { Task } from '@/types/tasks';
+import { memo } from 'react';
 import { FaCheckCircle, FaTrashAlt, FaRegCheckCircle } from 'react-icons/fa';
-// import { tasksApi } from '../api';
+import { useGetTaskCounts, useGetTasks, useUpdateTask, useDeleteTask } from '../hooks';
+import useTaskStore from '@/stores/useTaskStore';
 
 interface TaskRowProps {
   task: Task;
 }
 
-const TaskRow = ({ task }: TaskRowProps) => {
-  const handleComplete = () => {
-    // tasksApi.updateTask(id, { completed: !task.completed });
+const TaskRow = memo(({ task }: TaskRowProps) => {
+  const { setTaskCounts, taskCounts, setSelectedTask, setIsModalOpen, currentPage } =
+    useTaskStore();
+  const { updateTask } = useUpdateTask();
+  const { deleteTask } = useDeleteTask();
+  const { fetchTasks } = useGetTasks();
+  const { fetchTaskCounts } = useGetTaskCounts();
+
+  const handleComplete = async () => {
+    await updateTask({ ...task, completed: !task.completed });
+    setTaskCounts({
+      ...taskCounts,
+      uncompleted: task.completed ? taskCounts.uncompleted + 1 : taskCounts.uncompleted - 1,
+      completed: task.completed ? taskCounts.completed - 1 : taskCounts.completed + 1,
+    });
   };
-  const handleDelete = () => {
-    // tasksApi.deleteTask(id);
+
+  const handleDelete = async () => {
+    await deleteTask(task.id);
+    await fetchTasks({ _page: currentPage, _limit: 10 });
+    await fetchTaskCounts();
   };
+
+  const handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="flex items-center justify-between border-b p-4 gap-3">
+    <div
+      className="flex items-center gap-3 border-b p-4 select-none"
+      style={{ cursor: 'pointer' }}
+      onDoubleClick={e => handleDoubleClick(e)}
+    >
       {task.completed ? (
-        <FaCheckCircle size={24} color="black" cursor="pointer" onClick={() => handleComplete()} />
+        <FaCheckCircle
+          size={24}
+          color="black"
+          className="flex-shrink-0"
+          onClick={() => handleComplete()}
+          onDoubleClick={e => e.stopPropagation()}
+        />
       ) : (
         <FaRegCheckCircle
           size={24}
           color="#DBDEE0"
-          cursor="pointer"
+          className="flex-shrink-0"
           onClick={() => handleComplete()}
+          onDoubleClick={e => e.stopPropagation()}
         />
       )}
-      <div className="flex items-center gap-4">
-        <span
-          className={`overflow-hidden text-ellipsis whitespace-nowrap font-bold ${task.completed ? 'line-through' : ''}`}
-        >
-          {task.text}
-        </span>
-        <FaTrashAlt size={24} color="#CA0001" cursor="pointer" onClick={() => handleDelete()} />
-      </div>
+      <span
+        className={`overflow-hidden text-ellipsis whitespace-nowrap text-right font-bold flex-1 min-w-0 ${task.completed ? 'line-through' : ''}`}
+      >
+        {task.text}
+      </span>
+      <FaTrashAlt
+        size={24}
+        color="#CA0001"
+        className="flex-shrink-0"
+        onClick={() => handleDelete()}
+        onDoubleClick={e => e.stopPropagation()}
+      />
     </div>
   );
-};
+});
+
+TaskRow.displayName = 'TaskRow';
 
 export default TaskRow;
