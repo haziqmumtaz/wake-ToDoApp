@@ -1,0 +1,29 @@
+{
+  "name": "frontend-todo-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend Todo Application Monorepo",
+  "workspaces": [
+    "api",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run start --workspace=api\" \"npm run dev --workspace=frontend\" --names \"API,FRONTEND\" --prefix-colors \"blue,green\"",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:api": "npm run start --workspace=api",
+    "build": "npm run build --workspace=frontend",
+    "test": "npm run test --workspace=frontend",
+    "test:coverage": "npm run test:coverage --workspace=frontend",
+    "test:watch": "npm run test:watch --workspace=frontend",
+    "storybook": "npm run storybook --workspace=frontend",
+    "build-storybook": "npm run build-storybook --workspace=frontend",
+    "install:all": "npm install && npm install --workspace=api && npm install --workspace=frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

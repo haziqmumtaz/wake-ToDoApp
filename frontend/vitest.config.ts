@@ -22,6 +22,7 @@ export default defineConfig({
         '**/*.config.ts',
         '**/*.spec.*',
         '**/mockData/**',
+        '**/*.stories.tsx',
       ],
       include: ['src/**/*.{ts,tsx}'],
     },

@@ -10,7 +10,7 @@
     {
       "id": 2,
       "text": "Complete the React project",
-      "completed": true,
+      "completed": false,
       "deleted": false,
       "createdAt": "2025-02-03T13:00:00Z"
     },
@@ -24,7 +24,7 @@
     {
       "id": 4,
       "text": "Read a book",
-      "completed": true,
+      "completed": false,
       "deleted": false,
       "createdAt": "2025-02-03T14:00:00Z"
     },
@@ -141,7 +141,7 @@
     },
     {
       "text": "Test 10",
-      "completed": true,
+      "completed": false,
       "deleted": false,
       "createdAt": "2025-10-26T18:08:17.435Z",
       "id": 21
@@ -204,7 +204,7 @@
     },
     {
       "text": "onChange",
-      "completed": false,
+      "completed": true,
       "deleted": false,
       "createdAt": "2025-10-26T21:08:47.392Z",
       "id": 30
@@ -246,14 +246,14 @@
     },
     {
       "text": "Test 123434",
-      "completed": false,
+      "completed": true,
       "deleted": false,
       "createdAt": "2025-10-27T07:53:07.574Z",
       "id": 36
     },
     {
       "text": "Testing create nwew",
-      "completed": false,
+      "completed": true,
       "deleted": false,
       "createdAt": "2025-10-27T07:53:27.523Z",
       "id": 37
@@ -274,7 +274,7 @@
     },
     {
       "text": "Test alert 2",
-      "completed": false,
+      "completed": true,
       "deleted": false,
       "createdAt": "2025-10-27T07:55:31.499Z",
       "id": 40
@@ -296,7 +296,7 @@
     {
       "text": "Testing alrer 10",
       "completed": false,
-      "deleted": false,
+      "deleted": true,
       "createdAt": "2025-10-27T07:56:38.672Z",
       "id": 43
     },
@@ -316,8 +316,8 @@
     }
   ],
   "counts": {
-    "uncompleted": 18,
-    "completed": 6,
-    "deleted": 21
+    "uncompleted": 16,
+    "completed": 7,
+    "deleted": 22
   }
 }
