@@ -1,6 +1,6 @@
 import { httpClient } from '@/lib/http';
 import type { PaginatedRequest, PaginatedResponse } from '@/types/core';
-import type { CreateTaskPayload, Task, TaskCounts, UpdateTaskPayload } from '@/types/tasks';
+import type { CreateTaskPayload, Task, TaskCounts, } from '@/types/tasks';
 
 export const tasksApi = {
   getPaginatedTasks: async (params: PaginatedRequest) => {
@@ -11,7 +11,7 @@ export const tasksApi = {
     const response = await httpClient.get<TaskCounts>('/counts');
     return response;
   },
-  updateTask: async (payload: UpdateTaskPayload) => {
+  updateTask: async (payload: Task) => {
     const response = await httpClient.put<Task>(`/tasks/${payload.id}`, payload);
     return response;
   },

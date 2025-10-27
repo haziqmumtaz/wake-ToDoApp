@@ -162,7 +162,7 @@ describe('TaskModal', () => {
     await userEvent.clear(textarea);
     await userEvent.type(textarea, 'Updated task');
 
-    const submitButton = screen.getByRole('button', { name: 'taskModal.submit' });
+    const submitButton = screen.getByRole('button', { name: 'taskModal.update' });
     await userEvent.click(submitButton);
 
     await waitFor(() => {

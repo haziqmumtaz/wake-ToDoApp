@@ -54,25 +54,25 @@ describe('TaskRow', () => {
   });
 
   it('renders task text', () => {
-    render(<TaskRow task={mockTask} />);
+    render(<TaskRow task={mockTask} isLoading={false} />);
     expect(screen.getByText('Test Task')).toBeInTheDocument();
   });
 
   it('displays task with line-through when completed', () => {
     const completedTask: Task = { ...mockTask, completed: true };
-    render(<TaskRow task={completedTask} />);
+    render(<TaskRow task={completedTask} isLoading={false} />);
     const taskText = screen.getByText('Test Task');
     expect(taskText).toHaveClass('line-through');
   });
 
   it('renders all three elements: checkbox, text, and delete', () => {
-    const { container } = render(<TaskRow task={mockTask} />);
+    const { container } = render(<TaskRow task={mockTask} isLoading={false} />);
     const svgElements = container.querySelectorAll('svg');
     expect(svgElements.length).toBeGreaterThanOrEqual(2); // At least checkbox and trash icon
   });
 
   it('calls updateTask and setTaskCounts when clicking checkbox for incomplete task', async () => {
-    const { container } = render(<TaskRow task={mockTask} />);
+    const { container } = render(<TaskRow task={mockTask} isLoading={false} />);
     const svgElements = container.querySelectorAll('svg');
     const checkbox = svgElements[0];
 
@@ -94,7 +94,7 @@ describe('TaskRow', () => {
 
   it('calls updateTask and setTaskCounts when clicking checkbox for completed task', async () => {
     const completedTask: Task = { ...mockTask, completed: true };
-    const { container } = render(<TaskRow task={completedTask} />);
+    const { container } = render(<TaskRow task={completedTask} isLoading={false} />);
     const svgElements = container.querySelectorAll('svg');
     const checkbox = svgElements[0];
 
@@ -115,7 +115,7 @@ describe('TaskRow', () => {
   });
 
   it('calls deleteTask, fetchTasks, and fetchTaskCounts when clicking trash icon', async () => {
-    const { container } = render(<TaskRow task={mockTask} />);
+    const { container } = render(<TaskRow task={mockTask} isLoading={false} />);
     const svgElements = container.querySelectorAll('svg');
     const trashIcon = svgElements[1];
 
@@ -130,7 +130,7 @@ describe('TaskRow', () => {
   });
 
   it('calls setSelectedTask and setIsModalOpen when double-clicking row', () => {
-    const { container } = render(<TaskRow task={mockTask} />);
+    const { container } = render(<TaskRow task={mockTask} isLoading={false} />);
     const row = container.firstChild as HTMLElement;
 
     fireEvent.dblClick(row);
@@ -141,7 +141,7 @@ describe('TaskRow', () => {
 
   it('handles click and double-click on completed task checkbox', async () => {
     const completedTask: Task = { ...mockTask, completed: true };
-    const { container } = render(<TaskRow task={completedTask} />);
+    const { container } = render(<TaskRow task={completedTask} isLoading={false} />);
     const svgElements = container.querySelectorAll('svg');
     const checkbox = svgElements[0];
 
@@ -157,7 +157,7 @@ describe('TaskRow', () => {
   });
 
   it('handles click and double-click on delete icon', async () => {
-    const { container } = render(<TaskRow task={mockTask} />);
+    const { container } = render(<TaskRow task={mockTask} isLoading={false} />);
     const svgElements = container.querySelectorAll('svg');
     const deleteIcon = svgElements[1];
 
