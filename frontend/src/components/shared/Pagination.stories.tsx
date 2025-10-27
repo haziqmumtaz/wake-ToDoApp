@@ -5,7 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from '@/lib/i18n';
 
 const meta = {
-  title: 'Shared/Pagination',
+  title: 'Components/shared/Pagination',
   component: Pagination,
   parameters: {
     layout: 'centered',

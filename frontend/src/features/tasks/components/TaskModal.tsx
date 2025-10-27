@@ -129,7 +129,9 @@ const TaskModal = ({ onClose, onSuccess, isOpen }: TaskModalProps) => {
             >
               {t('taskModal.cancel')}
             </Button>
-            <Button onClick={handleModalSubmit}>{t('taskModal.submit')}</Button>
+            <Button onClick={handleModalSubmit}>
+              {isEditMode ? t('taskModal.update') : t('taskModal.submit')}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

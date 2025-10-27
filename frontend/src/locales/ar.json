@@ -14,6 +14,7 @@
     "placeholder": "أدخل وصف المهمة...",
     "cancel": "إلغاء",
     "submit": "إضافة",
+    "update": "تعديل",
     "charCount": "{{count}} / 50"
   },
   "pagination": {

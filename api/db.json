@@ -9,10 +9,9 @@
     },
     {
       "id": 2,
-      "text": "Complete the React project",
+      "text": "Complete the React project 123",
       "completed": false,
-      "deleted": false,
-      "createdAt": "2025-02-03T13:00:00Z"
+      "deleted": false
     },
     {
       "id": 3,

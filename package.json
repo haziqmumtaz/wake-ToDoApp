@@ -17,7 +17,8 @@
     "test:watch": "npm run test:watch --workspace=frontend",
     "storybook": "npm run storybook --workspace=frontend",
     "build-storybook": "npm run build-storybook --workspace=frontend",
-    "install:all": "npm install && npm install --workspace=api && npm install --workspace=frontend"
+    "install:all": "npm install && npm install --workspace=api && npm install --workspace=frontend",
+    "clean": "rm -rf node_modules && rm -rf api/node_modules && rm -rf frontend/node_modules && rm -rf && rm -rf dist"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
