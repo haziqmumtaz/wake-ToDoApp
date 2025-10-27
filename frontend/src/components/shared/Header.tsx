@@ -91,17 +91,17 @@ export const Header = () => {
             )}
           </Button>
           <NumericBadge
-            value={taskCounts.uncompleted > 99 ? '99+' : taskCounts.uncompleted.toString()}
+            value={taskCounts.uncompleted.toString()}
             backgroundColor="#6241E1"
             tooltip={t('header.tasksUncompleted')}
           />
           <NumericBadge
-            value={taskCounts.deleted > 99 ? '99+' : taskCounts.deleted.toString()}
+            value={taskCounts.deleted.toString()}
             backgroundColor="#E55251"
             tooltip={t('header.tasksDeleted')}
           />
           <NumericBadge
-            value={taskCounts.completed > 99 ? '99+' : taskCounts.completed.toString()}
+            value={taskCounts.completed.toString()}
             backgroundColor="#40CA28"
             tooltip={t('header.tasksCompleted')}
           />

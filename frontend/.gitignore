@@ -27,3 +27,6 @@ dist-ssr
 # Testing
 coverage
 .vitest
+
+# Storybook
+storybook-static

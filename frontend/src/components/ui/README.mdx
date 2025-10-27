@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="UI Components" />
+
+# UI Components
+
+This directory contains reusable UI components built with [shadcn/ui](https://ui.shadcn.com/).
+
+## Available Components
+
+All components in this directory are based on shadcn/ui and radix-ui primitives. For complete documentation, props, and examples, please refer to the official shadcn/ui documentation:
+
+### Components
+
+- **[Alert](https://ui.shadcn.com/docs/components/alert)** - Display important messages and notifications
+- **[Button](https://ui.shadcn.com/docs/components/button)** - Trigger actions and navigate
+- **[Dialog](https://ui.shadcn.com/docs/components/dialog)** - Display modal dialogs and overlays
+- **[Textarea](https://ui.shadcn.com/docs/components/textarea)** - Multi-line text input
+- **[Tooltip](https://ui.shadcn.com/docs/components/tooltip)** - Contextual information on hover
+
+## Usage
+
+Each component follows the shadcn/ui patterns and can be imported directly:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+```
+
+## Customization
+
+These components use Tailwind CSS and the CVA (class-variance-authority) library for styling. You can customize the appearance by modifying the component files in this directory.
+
+For installation and usage instructions for specific components, visit [shadcn/ui documentation](https://ui.shadcn.com/).

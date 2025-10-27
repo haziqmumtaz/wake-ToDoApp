@@ -21,7 +21,7 @@ const NumericBadge = ({
           className={`rounded-full w-8 h-8 shadow-lg cursor-default flex items-center justify-center `}
           style={{ color: textColor, backgroundColor: backgroundColor }}
         >
-          {value}
+          {Number(value) > 99 ? '99+' : value}
         </div>
       </TooltipTrigger>
       {tooltip && (
