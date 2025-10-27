@@ -24,7 +24,7 @@
   "alerts": {
     "success": "Success!",
     "taskCreated": "Task created successfully!",
-    "error": "Error",
+    "error": "An unexpected error occurred. Please try again later.",
     "loading": "Loading tasks..."
   }
 }

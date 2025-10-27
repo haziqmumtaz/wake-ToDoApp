@@ -9,7 +9,7 @@ const Tasks = () => {
   const { fetchTasks, isLoading, error } = useGetTasks();
   const { fetchTaskCounts } = useGetTaskCounts();
   const { tasks, totalPages, currentPage, setCurrentPage } = useTaskStore();
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: 'alerts' });
 
   // Only fetch on mount and when currentPage changes
   useEffect(() => {
@@ -21,23 +21,16 @@ const Tasks = () => {
   return (
     <div className="flex  lg:w-[35%] w-full flex-col gap-3">
       <div
-        className="flex flex-col border dark:border-gray-700 bg-white dark:bg-gray-800 min-h-[66vh] shadow-md"
+        className="flex flex-col min-h-[66vh] border dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md"
         key={'task-container'}
       >
-        {isLoading && (
-          <div className="flex flex-col gap-2 justify-center items-center h-full">
-            <div className="w-4 h-4 animate-spin rounded-full border-2 border-gray-500 dark:border-gray-400 border-t-transparent" />
-            <span className="text-gray-500 dark:text-gray-400">{t('alerts.loading')}</span>
-          </div>
-        )}
-
         {error && (
           <div className="p-4 flex flex-col gap-2 justify-center items-center h-full">
-            <span className="text-center text-red-500 dark:text-red-400">Error: {error}</span>
+            <span className="text-center text-red-500 dark:text-red-400">{t('error')}</span>
           </div>
-        )}
+        )} 
         {tasks.map(task => (
-          <TaskRow key={task.id} task={task} />
+          <TaskRow key={task.id} task={task} isLoading={isLoading} />
         ))}
       </div>
       {tasks.length > 0 && (

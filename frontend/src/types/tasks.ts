@@ -7,7 +7,6 @@ export type Task = {
 };
 
 export type CreateTaskPayload = Omit<Task, 'id'>;
-export type UpdateTaskPayload = Partial<Omit<Task, 'createdAt'>>;
 
 export type TaskStatus = 'completed' | 'uncompleted' | 'deleted';
 

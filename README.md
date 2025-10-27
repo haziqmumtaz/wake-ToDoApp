@@ -14,7 +14,7 @@ A modern, feature-rich TODO application built with React, TypeScript, and Vite. 
 
 ## Architecture
 
-This is a **monorepo** workspace containing:
+This is a **monorepo** workspace using concurrently to run both services from root:
 
 ### Frontend
 

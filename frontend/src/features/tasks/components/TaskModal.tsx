@@ -60,6 +60,7 @@ const TaskModal = ({ onClose, onSuccess, isOpen }: TaskModalProps) => {
           text: validatedData.text,
           completed: validatedData.completed,
           deleted: validatedData.deleted,
+          createdAt: selectedTask.createdAt
         });
         await fetchTasks({ _page: 1, _limit: 10 });
         await fetchTaskCounts();

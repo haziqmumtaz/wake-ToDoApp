@@ -6,9 +6,10 @@ import useTaskStore from '@/stores/useTaskStore';
 
 interface TaskRowProps {
   task: Task;
+  isLoading: boolean;
 }
 
-const TaskRow = memo(({ task }: TaskRowProps) => {
+const TaskRow = memo(({ task,isLoading }: TaskRowProps) => {
   const { setTaskCounts, taskCounts, setSelectedTask, setIsModalOpen, currentPage } =
     useTaskStore();
   const { updateTask } = useUpdateTask();
@@ -37,13 +38,21 @@ const TaskRow = memo(({ task }: TaskRowProps) => {
     setIsModalOpen(true);
   };
 
+  if(isLoading) {
+    return (
+      <div className="flex justify-center items-center gap-3 border-b p-4 select-none">
+        <div className="w-4 h-4 animate-spin rounded-full border-2 border-gray-500 dark:border-gray-400 border-t-transparent" />
+      </div>
+    );
+  }
+
   return (
     <div
       className="flex items-center gap-3 border-b p-4 select-none"
       style={{ cursor: 'pointer' }}
       onDoubleClick={e => handleDoubleClick(e)}
     >
-      {task.completed ? (
+ { task.completed ? (
         <FaCheckCircle
           size={24}
           color="black"
