@@ -8,9 +8,21 @@ import TaskModal from './TaskModal';
 
 vi.mock('../hooks');
 vi.mock('@/stores/useTaskStore');
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string, params?: Record<string, string | number>) => {
+      if (params && 'count' in params) {
+        return `${params.count} / 50`;
+      }
+      return key;
+    },
+  }),
+  initReactI18next: { type: 'languageDetector' },
+}));
 
 describe('TaskModal', () => {
   const mockOnClose = vi.fn();
+  const mockOnSuccess = vi.fn();
   const mockCreateTask = vi.fn();
   const mockUpdateTask = vi.fn();
   const mockFetchTasks = vi.fn();
@@ -43,12 +55,12 @@ describe('TaskModal', () => {
   });
 
   it('renders in add mode when no task is selected', () => {
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    expect(screen.getByRole('heading', { name: 'Add Task' })).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Task')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'taskModal.addTask' })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('taskModal.placeholder')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'taskModal.cancel' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'taskModal.submit' })).toBeInTheDocument();
   });
 
   it('renders in edit mode when task is selected', () => {
@@ -63,9 +75,9 @@ describe('TaskModal', () => {
       },
     });
 
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    expect(screen.getByRole('heading', { name: 'Edit Task' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'taskModal.editTask' })).toBeInTheDocument();
     expect(screen.getByDisplayValue('Test task')).toBeInTheDocument();
   });
 
@@ -81,15 +93,15 @@ describe('TaskModal', () => {
       },
     });
 
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
     expect(screen.getByDisplayValue('Existing task text')).toBeInTheDocument();
   });
 
   it('updates text as user types', async () => {
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    const textarea = screen.getByPlaceholderText('Task');
+    const textarea = screen.getByPlaceholderText('taskModal.placeholder');
     await userEvent.type(textarea, 'New task');
 
     expect(textarea).toHaveValue('New task');
@@ -107,7 +119,7 @@ describe('TaskModal', () => {
       },
     });
 
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
     expect(screen.getByText('4 / 50')).toBeInTheDocument();
   });
@@ -115,12 +127,12 @@ describe('TaskModal', () => {
   it('creates a new task successfully', async () => {
     mockCreateTask.mockResolvedValue({});
 
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    const textarea = screen.getByPlaceholderText('Task');
+    const textarea = screen.getByPlaceholderText('taskModal.placeholder');
     await userEvent.type(textarea, 'New task');
 
-    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const submitButton = screen.getByRole('button', { name: 'taskModal.submit' });
     await userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -144,13 +156,13 @@ describe('TaskModal', () => {
       },
     });
 
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
     const textarea = screen.getByDisplayValue('Existing task');
     await userEvent.clear(textarea);
     await userEvent.type(textarea, 'Updated task');
 
-    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const submitButton = screen.getByRole('button', { name: 'taskModal.submit' });
     await userEvent.click(submitButton);
 
     await waitFor(() => {
@@ -161,21 +173,21 @@ describe('TaskModal', () => {
   });
 
   it('displays validation errors when validation fails', async () => {
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const submitButton = screen.getByRole('button', { name: 'taskModal.submit' });
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      const errorText = screen.queryByText(/text|required|must/i);
+      const errorText = screen.queryByText(/task text is required/i);
       expect(errorText).toBeInTheDocument();
     });
   });
 
   it('closes modal on cancel button click', async () => {
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    const cancelButton = screen.getByRole('button', { name: 'Cancel' });
+    const cancelButton = screen.getByRole('button', { name: 'taskModal.cancel' });
     await userEvent.click(cancelButton);
 
     expect(mockOnClose).toHaveBeenCalled();
@@ -189,17 +201,17 @@ describe('TaskModal', () => {
   });
 
   it('clears error when user types after validation error', async () => {
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const submitButton = screen.getByRole('button', { name: 'taskModal.submit' });
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      const errorText = screen.queryByText(/text|required|must/i);
+      const errorText = screen.queryByText(/task text is required/i);
       expect(errorText).toBeInTheDocument();
     });
 
-    const textarea = screen.getByPlaceholderText('Task');
+    const textarea = screen.getByPlaceholderText('taskModal.placeholder');
     await userEvent.type(textarea, 'Valid task');
 
     // After typing, error should be cleared (textarea value updates)
@@ -209,12 +221,12 @@ describe('TaskModal', () => {
   it('displays unexpected error for non-Zod errors', async () => {
     mockCreateTask.mockRejectedValue(new Error('Network error'));
 
-    render(<TaskModal isOpen={true} onClose={mockOnClose} />);
+    render(<TaskModal isOpen={true} onClose={mockOnClose} onSuccess={mockOnSuccess} />);
 
-    const textarea = screen.getByPlaceholderText('Task');
+    const textarea = screen.getByPlaceholderText('taskModal.placeholder');
     await userEvent.type(textarea, 'Valid task');
 
-    const submitButton = screen.getByRole('button', { name: 'Submit' });
+    const submitButton = screen.getByRole('button', { name: 'taskModal.submit' });
     await userEvent.click(submitButton);
 
     await waitFor(() => {

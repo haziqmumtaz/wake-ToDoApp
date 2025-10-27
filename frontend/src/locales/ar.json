@@ -1,0 +1,29 @@
+{
+  "app": {
+    "title": "المهام"
+  },
+  "header": {
+    "addTodo": "إضافة مهمة",
+    "tasksUncompleted": "عدد المهام غير المكتملة",
+    "tasksDeleted": "عدد المهام المحذوفة",
+    "tasksCompleted": "عدد المهام المكتملة"
+  },
+  "taskModal": {
+    "addTask": "إضافة مهمة",
+    "editTask": "تعديل مهمة",
+    "placeholder": "أدخل وصف المهمة...",
+    "cancel": "إلغاء",
+    "submit": "إضافة",
+    "charCount": "{{count}} / 50"
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "alerts": {
+    "success": "نجح!",
+    "taskCreated": "تم إنشاء المهمة بنجاح!",
+    "error": "خطأ",
+    "loading": "جاري تحميل المهام..."
+  }
+}

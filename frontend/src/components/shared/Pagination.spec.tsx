@@ -2,6 +2,14 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Pagination from './Pagination';
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    i18n: {
+      language: 'en',
+    },
+  }),
+}));
+
 describe('Pagination', () => {
   let mockOnPageChange: ReturnType<typeof vi.fn>;
 

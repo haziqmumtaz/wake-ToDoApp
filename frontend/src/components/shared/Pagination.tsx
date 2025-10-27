@@ -1,13 +1,16 @@
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Button } from '../ui/button';
+import { useTranslation } from 'react-i18next';
 
 interface PaginationProps {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
-
 const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
   const handlePrevious = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
@@ -39,20 +42,24 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) 
     return pages;
   };
 
+  // Determine which arrow to show based on RTL/LTR
+  const PreviousIcon = isRTL ? FaChevronRight : FaChevronLeft;
+  const NextIcon = isRTL ? FaChevronLeft : FaChevronRight;
+
   return (
     <div className="flex items-center gap-2">
       <Button
         size="sm"
         variant="outline"
         disabled={currentPage === 1}
-        className={`cursor-pointer bg-white border-gray-300  ${
-          currentPage === 1 ? 'text-[#DEE2E6]' : 'text-gray-400'
+        className={`cursor-pointer bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 dark:text-white ${
+          currentPage === 1 ? 'text-[#DEE2E6] dark:text-gray-400' : 'text-gray-400 dark:text-white'
         }`}
         onClick={() => {
           handlePrevious();
         }}
       >
-        <FaChevronLeft />
+        <PreviousIcon />
       </Button>
       {getPagesArray().map((page: number | string, index: number) => {
         if (page === '...') {
@@ -61,7 +68,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) 
               key={`ellipsis-${index}`}
               size="sm"
               variant="outline"
-              className="cursor-pointer border-gray-300 hover:bg-gray-50 font-bold"
+              className="cursor-pointer border-gray-300 hover:bg-gray-50 font-bold dark:text-white"
             >
               ...
             </Button>
@@ -74,8 +81,8 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) 
             variant="outline"
             className={`cursor-pointer ${
               currentPage === page
-                ? 'border-[#4200FF] text-[#4200FF] font-bold'
-                : 'border-gray-300 text-gray-700 hover:bg-gray-50 font-bold'
+                ? 'border-[#4200FF] text-[#4200FF] font-bold dark:text-[#4200FF] dark:border-[#4200FF]'
+                : 'border-gray-300 text-gray-700 hover:bg-gray-50 font-bold dark:text-white'
             }`}
             onClick={() => {
               onPageChange(page as number);
@@ -89,14 +96,14 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) 
         size="sm"
         variant="outline"
         disabled={currentPage === totalPages}
-        className={`cursor-pointer bg-white ${
+        className={`cursor-pointer bg-white dark:bg-gray-800 dark:text-white${
           currentPage === totalPages ? 'text-[#DEE2E6]' : 'text-gray-400'
         }`}
         onClick={() => {
           handleNext();
         }}
       >
-        <FaChevronRight />
+        <NextIcon />
       </Button>
     </div>
   );

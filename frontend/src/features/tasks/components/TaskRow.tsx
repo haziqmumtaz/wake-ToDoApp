@@ -47,7 +47,7 @@ const TaskRow = memo(({ task }: TaskRowProps) => {
         <FaCheckCircle
           size={24}
           color="black"
-          className="flex-shrink-0"
+          className="flex-shrink-0 dark:fill-white"
           onClick={() => handleComplete()}
           onDoubleClick={e => e.stopPropagation()}
         />
@@ -55,13 +55,13 @@ const TaskRow = memo(({ task }: TaskRowProps) => {
         <FaRegCheckCircle
           size={24}
           color="#DBDEE0"
-          className="flex-shrink-0"
+          className="flex-shrink-0 dark:fill-gray-500"
           onClick={() => handleComplete()}
           onDoubleClick={e => e.stopPropagation()}
         />
       )}
       <span
-        className={`overflow-hidden text-ellipsis whitespace-nowrap text-right font-bold flex-1 min-w-0 ${task.completed ? 'line-through' : ''}`}
+        className={`overflow-hidden text-ellipsis whitespace-nowrap text-end font-bold flex-1 min-w-0 text-black dark:text-white ${task.completed ? 'line-through' : ''}`}
       >
         {task.text}
       </span>

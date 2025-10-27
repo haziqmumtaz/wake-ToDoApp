@@ -1,0 +1,29 @@
+{
+  "app": {
+    "title": "The Todo"
+  },
+  "header": {
+    "addTodo": "Add Todo",
+    "tasksUncompleted": "No. of Tasks uncompleted",
+    "tasksDeleted": "No. of Tasks deleted",
+    "tasksCompleted": "No. of Tasks completed"
+  },
+  "taskModal": {
+    "addTask": "Add Task",
+    "editTask": "Edit Task",
+    "placeholder": "Enter Task Description...",
+    "cancel": "Cancel",
+    "submit": "Add",
+    "charCount": "{{count}} / 50"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "alerts": {
+    "success": "Success!",
+    "taskCreated": "Task created successfully!",
+    "error": "Error",
+    "loading": "Loading tasks..."
+  }
+}

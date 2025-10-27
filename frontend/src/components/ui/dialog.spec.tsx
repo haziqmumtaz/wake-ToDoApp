@@ -1,14 +1,14 @@
-import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import {
   Dialog,
-  DialogTrigger,
+  DialogClose,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogClose,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from './dialog';
 
 describe('Dialog Components', () => {
@@ -38,6 +38,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <div>Content</div>
           </DialogContent>
         </Dialog>
@@ -49,6 +53,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <div>Content</div>
           </DialogContent>
         </Dialog>
@@ -61,6 +69,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent showCloseButton={false}>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <div>Content</div>
           </DialogContent>
         </Dialog>
@@ -72,6 +84,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent className="custom-class">
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <div>Content</div>
           </DialogContent>
         </Dialog>
@@ -86,8 +102,10 @@ describe('Dialog Components', () => {
         <Dialog open>
           <DialogContent>
             <DialogHeader>
-              <div>Header</div>
+              <DialogTitle>Test Dialog</DialogTitle>
             </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
+            <div>Header</div>
           </DialogContent>
         </Dialog>
       );
@@ -99,8 +117,10 @@ describe('Dialog Components', () => {
         <Dialog open>
           <DialogContent>
             <DialogHeader className="custom-header">
-              <div>Header</div>
+              <DialogTitle>Test Dialog</DialogTitle>
             </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
+            <div>Header</div>
           </DialogContent>
         </Dialog>
       );
@@ -113,7 +133,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
-            <DialogTitle>Test Title</DialogTitle>
+            <DialogHeader>
+              <DialogTitle>Test Title</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
           </DialogContent>
         </Dialog>
       );
@@ -126,6 +149,9 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
             <DialogDescription>Test Description</DialogDescription>
           </DialogContent>
         </Dialog>
@@ -139,6 +165,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <DialogFooter>
               <button>Action</button>
             </DialogFooter>
@@ -152,6 +182,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <DialogFooter className="custom-footer">
               <button>Action</button>
             </DialogFooter>
@@ -167,6 +201,10 @@ describe('Dialog Components', () => {
       render(
         <Dialog open>
           <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Test Dialog</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>Test Description</DialogDescription>
             <div>Content</div>
             <DialogClose>Close Button</DialogClose>
           </DialogContent>

@@ -13,18 +13,21 @@ import { useEffect, useState } from 'react';
 import { useCreateTask, useGetTaskCounts, useGetTasks, useUpdateTask } from '../hooks';
 import { validateCreateTask } from '../api/schemas';
 import { ZodError } from 'zod';
+import { useTranslation } from 'react-i18next';
 
 interface TaskModalProps {
   onClose: () => void;
+  onSuccess?: () => void;
   isOpen: boolean;
 }
 
-const TaskModal = ({ onClose, isOpen }: TaskModalProps) => {
+const TaskModal = ({ onClose, onSuccess, isOpen }: TaskModalProps) => {
   const { createTask } = useCreateTask();
   const { updateTask } = useUpdateTask();
   const { fetchTasks } = useGetTasks();
   const { fetchTaskCounts } = useGetTaskCounts();
   const { setSelectedTask, selectedTask } = useTaskStore();
+  const { t } = useTranslation();
   const [taskText, setTaskText] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,6 +73,12 @@ const TaskModal = ({ onClose, isOpen }: TaskModalProps) => {
       setSelectedTask({ id: 0, text: '', completed: false, deleted: false, createdAt: '' });
       setTaskText('');
       setError(null);
+
+      // Call onSuccess for new tasks only
+      if (!isEditMode && onSuccess) {
+        onSuccess();
+      }
+
       onClose();
     } catch (err) {
       if (err instanceof ZodError) {
@@ -94,28 +103,33 @@ const TaskModal = ({ onClose, isOpen }: TaskModalProps) => {
       <Dialog open={isOpen} onOpenChange={handleModalClose}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{isEditMode ? 'Edit Task' : 'Add Task'}</DialogTitle>
+            <DialogTitle>
+              {isEditMode ? t('taskModal.editTask') : t('taskModal.addTask')}
+            </DialogTitle>
           </DialogHeader>
-          <DialogDescription>
-            <div className="flex flex-col items-center gap-2 items-start">
-              <Textarea
-                placeholder="Task"
-                value={taskText}
-                className={`text-black ${error ? 'border-red-500' : ''}`}
-                onChange={e => {
-                  setTaskText(e.target.value);
-                  setError(null); // Clear error when user types
-                }}
-              />
-              <div className="flex flex-col items-center gap-2 items-start">
-                <span className="text-sm text-gray-500"> {taskText.length} / 50</span>
-                {error && <span className="text-red-500 text-sm mt-2">{error}</span>}
-              </div>
-            </div>
+          <DialogDescription className="flex flex-col items-center gap-2 items-start">
+            <Textarea
+              placeholder={t('taskModal.placeholder')}
+              value={taskText}
+              className={`text-black dark:text-white ${error ? 'border-red-500' : ''}`}
+              onChange={e => {
+                setTaskText(e.target.value);
+                setError(null);
+              }}
+            />
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              {t('taskModal.charCount', { count: taskText.length })}
+            </span>
+            {error && <span className="text-red-500 text-sm mt-2">{error}</span>}
           </DialogDescription>
           <DialogFooter>
-            <Button onClick={handleModalClose}>Cancel</Button>
-            <Button onClick={handleModalSubmit}>Submit</Button>
+            <Button
+              className="bg-white border border-black text-black hover:bg-gray-100 dark:bg-gray-500 dark:text-white"
+              onClick={handleModalClose}
+            >
+              {t('taskModal.cancel')}
+            </Button>
+            <Button onClick={handleModalSubmit}>{t('taskModal.submit')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
